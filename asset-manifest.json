@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/polygon/static/css/main.875059cf.chunk.css",
+    "main.css": "/polygon/static/css/main.390d8b62.chunk.css",
     "main.js": "/polygon/static/js/main.983c144a.chunk.js",
     "main.js.map": "/polygon/static/js/main.983c144a.chunk.js.map",
     "runtime-main.js": "/polygon/static/js/runtime-main.5d5cea85.js",
@@ -12,14 +12,14 @@
     "static/js/3.a9ae1652.chunk.js.map": "/polygon/static/js/3.a9ae1652.chunk.js.map",
     "index.html": "/polygon/index.html",
     "static/css/2.4c97ca4f.chunk.css.map": "/polygon/static/css/2.4c97ca4f.chunk.css.map",
-    "static/css/main.875059cf.chunk.css.map": "/polygon/static/css/main.875059cf.chunk.css.map",
+    "static/css/main.390d8b62.chunk.css.map": "/polygon/static/css/main.390d8b62.chunk.css.map",
     "static/js/2.a38dc946.chunk.js.LICENSE.txt": "/polygon/static/js/2.a38dc946.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5d5cea85.js",
     "static/css/2.4c97ca4f.chunk.css",
     "static/js/2.a38dc946.chunk.js",
-    "static/css/main.875059cf.chunk.css",
+    "static/css/main.390d8b62.chunk.css",
     "static/js/main.983c144a.chunk.js"
   ]
 }
