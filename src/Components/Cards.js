@@ -5,7 +5,7 @@ import {Button, ButtonGroup, Card, Col, Image, Row, Toast} from "react-bootstrap
 function Alerts(props) {
     return (
         <>
-            <Toast className="position-fixed w-50" style={{bottom: "0", right: "0", zIndex: "1"}} delay={5000}
+            <Toast className="position-fixed w-50" style={{bottom: "0", right: "10px", zIndex: "1"}} delay={5000}
                    show={props.show} onClose={() => props.setShow(false)} autohide>
                 <Toast.Header>
                     <Image
@@ -24,7 +24,7 @@ function Alerts(props) {
 export function Cards() {
     /* Инцилизация Holder.js */
     useEffect(() => {runHolder('carimg');});
-
+    /* Кастомный хук */
     const useInput = (initialValue) => {
         const [value, setValue] = useState(initialValue);
 
@@ -47,8 +47,12 @@ export function Cards() {
     const colorBg = useInput("light");
     const colorBr = useInput("light");
     const column = useInput("");
+    const picSizeY = useInput("180");
+    const picSizeZ = useInput("100p");
+    const width = useInput("25");
     const buttonsText = useInput("");
     const buttonsColor = useInput("");
+    const alertText = useInput("");
     const [show, setShow] = useState(false);
     const [cardArray, setCardArray] = useState([
         {
@@ -57,6 +61,8 @@ export function Cards() {
             colorBg: "light",
             colorBr: "",
             column: "",
+            picSizeY: "180",
+            picSizeZ: "100p",
             buttons: [{text: "Кнопка", color: "primary"}]
         },
         {
@@ -65,10 +71,11 @@ export function Cards() {
             colorBg: "light",
             colorBr: "",
             column: "",
+            picSizeY: "180",
+            picSizeZ: "100p",
             buttons: [{text: "Кнопка", color: "primary"}]
         }]);
     const [buttons, setButtons] = useState([]);
-    const [alertText, setAlertText] = useState("");
     const colors = ['Primary', 'Secondary', 'Success', 'Danger', 'Warning', 'Info', 'Light', 'Dark',]
 
     const mapCards = React.useMemo(
@@ -78,7 +85,7 @@ export function Cards() {
                     <Col key={id} md={variant.column} style={{paddingBottom: '15px'}}>
                         <Card bg={variant.colorBg} text={variant.colorBg === 'light' ? 'dark' : 'white'}
                               border={variant.colorBr}>
-                            <Card.Img className="carimg" variant="top" src="holder.js/100px180"/>
+                            <Card.Img className="carimg" variant="top" src={"holder.js/" + variant.picSizeZ + "x" + variant.picSizeY}/>
                             <Card.Body>
                                 <Card.Title>{variant.name}</Card.Title>
                                 <Card.Text>
@@ -90,7 +97,7 @@ export function Cards() {
                                     cardArray.splice(id, 1)
                                     setCardArray([...cardArray])
                                     setShow(true)
-                                    setAlertText("Карточка удалена")
+                                    alertText.onClick("Карточка удалена")
                                 }
                                 } className="ml-3" variant="danger">Удалить</Button>
                             </Card.Body>
@@ -103,55 +110,64 @@ export function Cards() {
     return (
         <>
             <h2 className="text-center">Редактор карточек</h2>
-            <Row className="pb-3 m-0">
+            <Row className="pb-3 m-0 text-center">
                 <Col lg={4}>
-                    <h4 className="text-center">Заголовок карточки </h4>
-                    <div className="text-center mb-3"><input placeholder="Карточка 1" type="text" onChange={e => name.onChange(e)}/></div>
-                    <h5 className="text-center">Содержимое карточки</h5>
-                    <div className="text-center mb-3"><textarea placeholder="Бла-бла-бла" rows="3" cols="35" onChange={e => body.onChange(e)}/></div>
+                    <h4>Заголовок карточки </h4>
+                    <div className="mb-3"><input placeholder="Карточка 1" type="text" onChange={e => name.onChange(e)}/></div>
+                    <h5>Содержимое карточки</h5>
+                    <div className="mb-3"><textarea placeholder="Бла-бла-бла..." rows="3" cols="35" onChange={e => body.onChange(e)}/></div>
+                    <h5 >Ширина предпросмотра карточки:</h5>
+                    <div><input className="w-25 text-center" placeholder="В процентах" type="text" onChange={e => width.onChange(e)}/></div>
                 </Col>
                 <Col lg={4}>
-                    <h5 className="text-center">Цвет тела карточки:</h5>
-                    <ButtonGroup className="d-block text-center">
+                    <h5 >Цвет тела карточки:</h5>
+                    <ButtonGroup className="d-block">
                         {
                             colors.map((variant, id) => (
                                 <Button key={id} variant={variant.toLowerCase()} onClick={() => {
                                     colorBg.onClick(variant.toLowerCase())
-                                    setAlertText("Выбран цвет карточки " + variant.toLowerCase())
+                                    alertText.onClick("Выбран цвет карточки " + variant.toLowerCase())
                                     setShow(true)
                                 }
                                 }>{variant}</Button>
                             ))
                         }
                     </ButtonGroup>
-                    <h5 className="text-center"> Цвет обводки карточки:</h5>
-                    <ButtonGroup className="d-block text-center">
+                    <h5> Цвет обводки карточки:</h5>
+                    <ButtonGroup className="d-block">
                         {
                             colors.map((variant, id) => (
                                 <Button key={id} variant={variant.toLowerCase()} onClick={() => {
                                     colorBr.onClick(variant.toLowerCase())
-                                    setAlertText("Выбран цвет обводки " + variant.toLowerCase())
+                                    alertText.onClick("Выбран цвет обводки " + variant.toLowerCase())
                                     setShow(true)
                                 }}>{variant}</Button>
                             ))
                         }
                     </ButtonGroup>
-                    <h5 className="text-center">Колонны, занимаемые карточкой:</h5>
-                    <div className="text-center "><input className="w-25 text-center" placeholder="От 1 до 12" type="text" onChange={e => column.onChange(e)}/></div>
+                    <h5>Колонны, занимаемые карточкой:</h5>
+                    <div><input className="w-25 text-center" placeholder="От 1 до 12" type="text" onChange={e => column.onChange(e)}/></div>
+                    <h5>Размер картинки:</h5>
+                    <div>
+                        <input className="w-25 text-center" placeholder="100p" type="text" onChange={e => picSizeZ.onChange(e)}/>
+                        x
+                        <input className="w-25 text-center" placeholder="180" type="text" onChange={e => picSizeY.onChange(e)}/>
+                    </div>
+                    <p className="text-black-50">p - проценты от блока</p>
                 </Col>
                 <Col lg={4}>
-                    <h4 className="text-center">Добавить кнопки </h4>
-                    <h5 className="text-center">Текст кнопки:</h5>
-                    <div className="text-center "><input className="w-25 text-center" placeholder="Кнопка" type="text" onChange={e => buttonsText.onChange(e)}/></div>
-                    <h5 className="text-center">Цвет кнопки:</h5>
-                    <ButtonGroup className="d-block text-center">
+                    <h4>Добавить кнопки </h4>
+                    <h5>Текст кнопки:</h5>
+                    <div><input className="w-25 text-center" placeholder="Кнопка" type="text" onChange={e => buttonsText.onChange(e)}/></div>
+                    <h5>Цвет кнопки:</h5>
+                    <ButtonGroup className="d-block">
                         {
                             colors.map((variant, id) => (
                                 <Button key={id}
                                         variant={variant.toLowerCase()}
                                         onClick={() => {
                                     buttonsColor.onClick(variant.toLowerCase())
-                                    setAlertText("Выбран цвет " + variant.toLowerCase())
+                                    alertText.onClick("Выбран цвет " + variant.toLowerCase())
                                     setShow(true)
                                         }
                                         }
@@ -160,20 +176,20 @@ export function Cards() {
                     </ButtonGroup>
                     <Button className="mr-auto ml-auto mt-2 d-block" variant="success" onClick={() => {
                         setButtons([...buttons, {text: buttonsText.value, color: buttonsColor.value}])
-                        setAlertText("Кнопка успешно добавлена")
+                        alertText.onClick("Кнопка успешно добавлена")
                         setShow(true)
                     }
                     }>Добавить кнопку</Button>
                     <Button className="mr-auto ml-auto mt-2 d-block" variant="danger" onClick={() => {
                         setButtons([])
-                        setAlertText("Кнопки успешно удалены")
+                        alertText.onClick("Кнопки успешно удалены")
                         setShow(true)
                     }}>Удалить кнопки</Button>
                 </Col>
             </Row>
             <h4 className="text-center">Предпросмотр карточки</h4>
-            <Card className="w-50 m-auto" bg={colorBg.value} text={colorBg.value === 'light' ? 'dark' : 'white'} border={colorBr.value}>
-                <Card.Img className="carimg" variant="top" src="holder.js/100px180"/>
+            <Card className=" m-auto" style={{width: width.value + "%"}} bg={colorBg.value} text={colorBg.value === 'light' ? 'dark' : 'white'} border={colorBr.value}>
+                <Card.Img className="carimg" variant="top" src={"holder.js/" + picSizeZ.value + "x" + picSizeY.value}/>
                 <Card.Body>
                     <Card.Title>{name.value}</Card.Title>
                     <Card.Text>
@@ -192,17 +208,19 @@ export function Cards() {
                             colorBg: colorBg.value,
                             colorBr: colorBr.value,
                             buttons: buttons,
-                            column: column.value
+                            column: column.value,
+                            picSizeY: picSizeY.value,
+                            picSizeZ: picSizeZ.value
                         }]
                     )
                     setShow(true)
-                    setAlertText("Карточка успешно добавлена")
+                    alertText.onClick("Карточка успешно добавлена")
                 }
             }>Добавить</Button>
             <Row className="m-0 border-top border-dark pt-3">
                 {mapCards}
             </Row>
-            <Alerts show={show} setShow={setShow} text={alertText}/>
+            <Alerts show={show} setShow={setShow} text={alertText.value}/>
         </>
     )
 }
