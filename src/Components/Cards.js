@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {run as runHolder} from "holderjs";
-import {Button, ButtonGroup, Card, Col, Image, Row, Toast} from "react-bootstrap";
+import {Button, ButtonGroup, Card, Col, DropdownButton, Image, Row, Toast, Dropdown} from "react-bootstrap";
 
 function Alerts(props) {
     return (
@@ -42,6 +42,7 @@ export function Cards() {
             onClick
         }
     }
+
     const name = useInput("")
     const body = useInput("")
     const colorBg = useInput("light");
@@ -63,6 +64,7 @@ export function Cards() {
             column: "",
             picSizeY: "180",
             picSizeZ: "100p",
+            id: 0,
             buttons: [{text: "Кнопка", color: "primary"}]
         },
         {
@@ -73,16 +75,18 @@ export function Cards() {
             column: "",
             picSizeY: "180",
             picSizeZ: "100p",
+            id: 1,
             buttons: [{text: "Кнопка", color: "primary"}]
         }]);
     const [buttons, setButtons] = useState([]);
     const colors = ['Primary', 'Secondary', 'Success', 'Danger', 'Warning', 'Info', 'Light', 'Dark',]
+    const colorSet = useInput("")
 
     const mapCards = React.useMemo(
         () =>
             cardArray.map((variant, id) => {
                 return (
-                    <Col key={id} md={variant.column} style={{paddingBottom: '15px'}}>
+                    <Col key={id} md={variant.column} style={{paddingBottom: '15px', display: variant.colorBg === colorSet.value || colorSet.value === "" ? "block" : "none"}}>
                         <Card bg={variant.colorBg} text={variant.colorBg === 'light' ? 'dark' : 'white'}
                               border={variant.colorBr}>
                             <Card.Img className="carimg" variant="top" src={"holder.js/" + variant.picSizeZ + "x" + variant.picSizeY}/>
@@ -105,8 +109,16 @@ export function Cards() {
                     </Col>
                 )
             }),
-        [cardArray]
+        [cardArray, colorSet.value]
     )
+
+    const sortById = (a, b) => a.id > b.id ? 1 : a.id < b.id ? -1 : 0
+    const sortByAlphabet = (a, b) => a.name > b.name ? 1 : a.name < b.name ? -1 : 0
+    function sortByColor(a, b) {
+        const lowerCasedColors = colors.map(colors => colors.toLowerCase());
+        return lowerCasedColors.indexOf(a.colorBg) - lowerCasedColors.indexOf(b.colorBg)
+    }
+
     return (
         <>
             <h2 className="text-center">Редактор карточек</h2>
@@ -201,6 +213,7 @@ export function Cards() {
             </Card>
             <Button className="d-block mr-auto ml-auto mb-3 mt-3" onClick={
                 () => {
+                    console.log(cardArray.length)
                     setCardArray(
                         [...cardArray, {
                             name: name.value,
@@ -210,14 +223,29 @@ export function Cards() {
                             buttons: buttons,
                             column: column.value,
                             picSizeY: picSizeY.value,
-                            picSizeZ: picSizeZ.value
+                            picSizeZ: picSizeZ.value,
+                            id: cardArray.length
                         }]
                     )
                     setShow(true)
                     alertText.onClick("Карточка успешно добавлена")
                 }
             }>Добавить</Button>
-            <Row className="m-0 border-top border-dark pt-3">
+            <div className="text-center border-top border-dark pt-4">
+                <DropdownButton className="d-inline mr-1"  title="Сортировка">
+                    <Dropdown.Item onClick={() => { setCardArray([...cardArray].sort(sortByAlphabet))}}>По строке заголовка</Dropdown.Item>
+                    <Dropdown.Item onClick={() => { setCardArray([...cardArray].sort(sortByColor))}}>По цвету</Dropdown.Item>
+                    <Dropdown.Item onClick={() => { setCardArray([...cardArray].sort(sortById))}}>По индексу</Dropdown.Item>
+                </DropdownButton>
+                <DropdownButton className="d-inline ml-1" title="Цветовой фильтр">
+                    {
+                        colors.map((variant, id) => (
+                            <Dropdown.Item key={id} className={"text-" + variant.toLowerCase()} onClick={() => {colorSet.onClick(variant.toLowerCase())}} >{variant}</Dropdown.Item>))}
+                    <Dropdown.Item onClick={() => {colorSet.onClick("")}} >Убрать фильтр</Dropdown.Item>
+                </DropdownButton>
+                {colorSet.value !== "" ? <p>Выбран <span className={"text-" + colorSet.value}>цвет</span></p> : <p>Цвет не выбран</p>}
+            </div>
+            <Row className="m-0 ">
                 {mapCards}
             </Row>
             <Alerts show={show} setShow={setShow} text={alertText.value}/>
