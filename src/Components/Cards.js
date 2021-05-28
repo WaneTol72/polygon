@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {run as runHolder} from "holderjs";
-import {Button, ButtonGroup, Card, Col, Row, Toast} from "react-bootstrap";
+import {Button, ButtonGroup, Card, Col, Image, Row, Toast} from "react-bootstrap";
 
 function Alerts(props) {
     return (
@@ -8,7 +8,7 @@ function Alerts(props) {
             <Toast className="position-fixed w-50" style={{bottom: "0", right: "0", zIndex: "1"}} delay={5000}
                    show={props.show} onClose={() => props.setShow(false)} autohide>
                 <Toast.Header>
-                    <img
+                    <Image
                         src="holder.js/20x20?text=%20"
                         className="rounded mr-2"
                         alt=""
