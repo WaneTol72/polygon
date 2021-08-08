@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/polygon/static/css/main.777a4e66.chunk.css",
-    "main.js": "/polygon/static/js/main.2c1c2b92.chunk.js",
-    "main.js.map": "/polygon/static/js/main.2c1c2b92.chunk.js.map",
-    "runtime-main.js": "/polygon/static/js/runtime-main.e89df9e5.js",
-    "runtime-main.js.map": "/polygon/static/js/runtime-main.e89df9e5.js.map",
-    "static/css/2.4c97ca4f.chunk.css": "/polygon/static/css/2.4c97ca4f.chunk.css",
-    "static/js/2.67239537.chunk.js": "/polygon/static/js/2.67239537.chunk.js",
-    "static/js/2.67239537.chunk.js.map": "/polygon/static/js/2.67239537.chunk.js.map",
-    "static/js/3.4eb8a673.chunk.js": "/polygon/static/js/3.4eb8a673.chunk.js",
-    "static/js/3.4eb8a673.chunk.js.map": "/polygon/static/js/3.4eb8a673.chunk.js.map",
+    "main.js": "/polygon/static/js/main.b6e6e202.chunk.js",
+    "main.js.map": "/polygon/static/js/main.b6e6e202.chunk.js.map",
+    "runtime-main.js": "/polygon/static/js/runtime-main.32859c32.js",
+    "runtime-main.js.map": "/polygon/static/js/runtime-main.32859c32.js.map",
+    "static/css/2.27dd871e.chunk.css": "/polygon/static/css/2.27dd871e.chunk.css",
+    "static/js/2.24fce2ae.chunk.js": "/polygon/static/js/2.24fce2ae.chunk.js",
+    "static/js/2.24fce2ae.chunk.js.map": "/polygon/static/js/2.24fce2ae.chunk.js.map",
+    "static/js/3.9ac029f5.chunk.js": "/polygon/static/js/3.9ac029f5.chunk.js",
+    "static/js/3.9ac029f5.chunk.js.map": "/polygon/static/js/3.9ac029f5.chunk.js.map",
     "index.html": "/polygon/index.html",
-    "static/css/2.4c97ca4f.chunk.css.map": "/polygon/static/css/2.4c97ca4f.chunk.css.map",
+    "static/css/2.27dd871e.chunk.css.map": "/polygon/static/css/2.27dd871e.chunk.css.map",
     "static/css/main.777a4e66.chunk.css.map": "/polygon/static/css/main.777a4e66.chunk.css.map",
-    "static/js/2.67239537.chunk.js.LICENSE.txt": "/polygon/static/js/2.67239537.chunk.js.LICENSE.txt"
+    "static/js/2.24fce2ae.chunk.js.LICENSE.txt": "/polygon/static/js/2.24fce2ae.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e89df9e5.js",
-    "static/css/2.4c97ca4f.chunk.css",
-    "static/js/2.67239537.chunk.js",
+    "static/js/runtime-main.32859c32.js",
+    "static/css/2.27dd871e.chunk.css",
+    "static/js/2.24fce2ae.chunk.js",
     "static/css/main.777a4e66.chunk.css",
-    "static/js/main.2c1c2b92.chunk.js"
+    "static/js/main.b6e6e202.chunk.js"
   ]
 }
